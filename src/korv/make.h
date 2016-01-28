@@ -31,7 +31,7 @@ namespace korv
 		//
 		// [ 1 0 0 0 0 1 0 0 0 0 1 0 x y z 1 ]
 
-		void mat4_persp_proj(float *dst, float w, float h, float zn, float zf)
+		inline void mat4_persp_proj(float *dst, float w, float h, float zn, float zf)
 		{
 			for (int i=0;i<16;i++)
 			{
@@ -44,7 +44,7 @@ namespace korv
 			dst[14] = 2.0f * (zf * zn) / (zn - zf);
 		}
 
-		void mat4_zero(float *dst)
+		inline void mat4_zero(float *dst)
 		{
 			MTX_SET_COL(0, dst, 0, 0, 0, 0);
 			MTX_SET_COL(1, dst, 0, 0, 0, 0);
@@ -52,7 +52,7 @@ namespace korv
 			MTX_SET_COL(3, dst, 0, 0, 0, 0);
 		}
 
-		void mat4_id(float *dst)
+		inline void mat4_id(float *dst)
 		{
 			MTX_SET_COL(0, dst, 1, 0, 0, 0);
 			MTX_SET_COL(1, dst, 0, 1, 0, 0);
@@ -60,7 +60,7 @@ namespace korv
 			MTX_SET_COL(3, dst, 0, 0, 0, 1);
 		}
 
-		void mat4_scale(float *dst, float x, float y, float z)
+		inline void mat4_scale(float *dst, float x, float y, float z)
 		{
 			MTX_SET_COL(0, dst, x, 0, 0, 0);
 			MTX_SET_COL(1, dst, 0, y, 0, 0);
@@ -68,7 +68,7 @@ namespace korv
 			MTX_SET_COL(3, dst, 0, 0, 0, 1);
 		}
 	
-		void mat4_trans(float *dst, float x, float y, float z)
+		inline void mat4_trans(float *dst, float x, float y, float z)
 		{
 			MTX_SET_COL(0, dst, 1, 0, 0, 0);
 			MTX_SET_COL(1, dst, 0, 1, 0, 0);
@@ -76,7 +76,7 @@ namespace korv
 			MTX_SET_COL(3, dst, x, y, z, 1);
 		}
 
-		void mat4_rot_z_sc(float *dst, float sin, float cos)
+		inline void mat4_rot_z_sc(float *dst, float sin, float cos)
 		{
 			MTX_SET_COL(0, dst, cos,  sin, 0, 0);
 			MTX_SET_COL(1, dst, -sin, cos, 0, 0);
@@ -84,12 +84,12 @@ namespace korv
 			MTX_SET_COL(3, dst, 0, 0, 0, 1);
 		}
 
-		void mat4_rot_z(float *dst, float a)
+		inline void mat4_rot_z(float *dst, float a)
 		{
 			mat4_rot_z_sc(dst, sinf(a), cosf(a));
 		}
 
-		void mat4_rot_x_sc(float *dst, float sin, float cos)
+		inline void mat4_rot_x_sc(float *dst, float sin, float cos)
 		{
 			MTX_SET_COL(0, dst, 1, 0, 0, 0);
 			MTX_SET_COL(1, dst, 0, cos, sin, 0);
@@ -97,7 +97,7 @@ namespace korv
 			MTX_SET_COL(3, dst, 0, 0, 0, 1);
 		}		
 
-		void vec4(float *out, float x, float y, float z, float w)
+		inline void vec4(float *out, float x, float y, float z, float w)
 		{
 			out[0] = x;
 			out[1] = y;
@@ -105,18 +105,41 @@ namespace korv
 			out[3] = w;
 		}
 
-		void vec3(float *out, float x, float y, float z)
+		inline void vec3(float *out, float x, float y, float z)
 		{
 			out[0] = x;
 			out[1] = y;
 			out[2] = z;
 		}
 
-		void vec2(float *out, float x, float y, float z)
+		inline void vec2(float *out, float x, float y, float z)
 		{
 			out[0] = x;
-			out[1] = y;
+			out[1] = y;            
 		}
+        
+        inline void quat(float *out, float x, float y, float z, float w)
+		{
+            vec4(out, x, y, z, w);
+		}
+        
+        inline void quat_axis_angle(float *out, float x, float y, float z, float a)
+        {
+            const float s = sinf(0.5f * a);
+            const float c = cosf(0.5f * a);            
+            out[0] = c;
+            out[1] = s * x;
+            out[2] = s * y;
+            out[3] = s * z;
+        }
+        
+        inline void quat_point3(float* out, float x, float y, float z)
+        {
+            out[0] = 0;
+            out[1] = x;
+            out[2] = y;
+            out[3] = z;
+        }
 	}
 }
 

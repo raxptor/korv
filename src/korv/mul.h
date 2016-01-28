@@ -24,6 +24,45 @@ namespace korv
 				mat4_vec4(out + 4*i, left, right + 4*i);
 			}
 		}
+        
+        inline void vec4(float *out, float scalar, const float *in)
+        {
+            for (int i=0;i<4;i++)
+            {
+                out[i] = scalar * in[i];
+            }
+        }
+        
+        inline void vec3(float *out, float scalar, const float *in)
+        {
+            for (int i=0;i<3;i++)
+            {
+                out[i] = scalar * in[i];
+            }
+        }
+        
+        inline float vec4_dot(const float *left, const float *right)
+        {
+            return left[0] * right[0] + 
+                   left[1] * right[1] + 
+                   left[2] * right[2] + 
+                   left[3] * right[3];
+        }
+        
+        inline float vec3_dot(const float *left, const float *right)
+        {
+            return left[0] * right[0] + 
+                   left[1] * right[1] + 
+                   left[2] * right[2];                   
+        }
+                
+        inline void quat(float* out, const float* left, const float* right)
+        {         
+            out[0] = left[0] * right[0] - left[1] * right[1] - left[2] * right[2] - left[3] * right[3];
+            out[1] = left[0] * right[1] + left[1] * right[0] + left[2] * right[3] - left[3] * right[2];
+            out[2] = left[0] * right[2] - left[1] * right[3] + left[2] * right[0] + left[3] * right[1];
+            out[3] = left[0] * right[3] + left[1] * right[2] - left[2] * right[1] + left[3] * right[0];            
+        }
 	}
 }
 

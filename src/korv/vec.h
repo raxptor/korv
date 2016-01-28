@@ -3,13 +3,16 @@
 
 namespace korv
 {
-	/////////////////////////////////////////////
-	// Yes, this is all you get, so deal with it.
-
+	///////////////////////////
+	// Yes, this is all you get
+    
 	typedef float mat4f[16];
 	typedef float vec4f[4];
 	typedef float vec3f[3];
 	typedef float vec2f[2];
+    
+    typedef float mat34f[12];
+    typedef float quatf[4];
 
 	/*
 	Not supported yet
