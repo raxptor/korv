@@ -95,7 +95,12 @@ namespace korv
 			MTX_SET_COL(1, dst, 0, cos, sin, 0);
 			MTX_SET_COL(2, dst, 0, -sin, cos, 0);
 			MTX_SET_COL(3, dst, 0, 0, 0, 1);
-		}		
+		}	
+ 
+        void mat4_rot_x(float *dst, float a)
+        {
+            mat4_rot_x_sc(dst, sinf(a), cosf(a));
+        }        	
 
 		inline void vec4(float *out, float x, float y, float z, float w)
 		{
